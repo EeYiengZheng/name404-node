@@ -2,7 +2,8 @@ setup:
     npm install
     
 run:
-    node app.js
+    node bin/www or
+    npm start
 
-helloWorld:
+browser:
     http://localhost:3000/
