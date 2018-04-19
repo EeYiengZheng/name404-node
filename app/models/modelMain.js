@@ -20,3 +20,17 @@ module.exports.dbTest = function (req, res, next) {
             }
         })
 };
+
+/*
+ * GET order list page.
+ */
+module.exports.get_orderlist = function(req, res) 
+{
+    const db = req.db;
+    const collection = db.get('transaction');
+    collection.find({}, {}, 
+                    function(err, docs)
+                    {
+                        res.render('orderlist', { "orderlist" : docs });
+                    });
+};

@@ -12,4 +12,13 @@ router.get('/', ctrlMain.index);
  */
 router.get('/dbtest', modelMain.dbTest);
 
+
+/*
+ * GET order list page.
+ */
+router.get('/orderlist', modelMain.get_orderlist);
+
+
+
+
 module.exports = router;
