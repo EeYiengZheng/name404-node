@@ -19,6 +19,11 @@ router.get('/dbtest', modelMain.dbTest);
 router.get('/orderlist', modelMain.get_orderlist);
 
 
+/*
+ * GET show order page.
+ */
+router.get('/orderlist/:order_no', modelMain.get_showorder);
+
 
 
 module.exports = router;

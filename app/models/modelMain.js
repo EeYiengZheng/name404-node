@@ -34,3 +34,27 @@ module.exports.get_orderlist = function(req, res)
                         res.render('orderlist', { "orderlist" : docs });
                     });
 };
+
+
+/*
+ * GET show user page.
+ */
+module.exports.get_showorder = function(req, res) 
+{
+    const orderNo = req.params.order_no;
+    const db = req.db;
+    const collection = db.get('transaction');
+    collection.find( { order_no: parseInt(orderNo) }, 
+                     function(err, doc) 
+                     {
+                         if (err) {
+                             res.send("Find failed.");
+                         }
+                         else {
+                            console.log(doc);
+                             res.render('showorder', 
+                                        { title: 'Show Order No: ' + orderNo,
+                                          order: doc[0] })
+                         }
+                     });
+};
