@@ -12,7 +12,16 @@ router.get('/', ctrlMain.index);
  */
 router.get('/dbtest', modelMain.dbTest);
 
+/*
+ * Deleting a transaction
+ */
 router.get('/deleteorder/:orderno', ctrlMain.get_deleteorder);
 router.post('/deleteorder/:orderno', modelMain.post_deleteorder);
+=======
+
+/*
+ * GET order list page.
+ */
+router.get('/orderlist', modelMain.get_orderlist);
 
 module.exports = router;

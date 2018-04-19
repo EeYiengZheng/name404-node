@@ -21,6 +21,9 @@ module.exports.dbTest = function (req, res, next) {
         })
 };
 
+/*
+ * POST delete a transaction
+ */
 module.exports.post_deleteorder = function(req, res) 
 {
     var o_no = parseInt(req.params.orderno, 10);
@@ -39,3 +42,19 @@ module.exports.post_deleteorder = function(req, res) 
                            }
                        });
 };
+
+
+/*
+ * GET order list page.
+ */
+module.exports.get_orderlist = function(req, res) 
+{
+    const db = req.db;
+    const collection = db.get('transaction');
+    collection.find({}, {}, 
+                    function(err, docs)
+                    {
+                        res.render('orderlist', { "orderlist" : docs });
+                    });
+};
+
