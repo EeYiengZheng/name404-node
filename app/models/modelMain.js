@@ -54,7 +54,8 @@ module.exports.get_orderlist = function(req, res)
     collection.find({}, {}, 
                     function(err, docs)
                     {
-                        res.render('orderlist', { "orderlist" : docs });
+                        //res.render('orderlist', { "orderlist" : docs });
+                        res.send(docs);
                     });
 };
 
@@ -71,13 +72,11 @@ module.exports.get_showorder = function(req, res)
                      function(err, doc) 
                      {
                          if (err) {
-                             res.send("Find failed.");
+                            res.send("Find failed.");
                          }
                          else {
-                            console.log(doc);
-                             res.render('showorder', 
-                                        { title: 'Show Order No: ' + orderNo,
-                                          order: doc[0] })
+                             //res.render('showorder', { title: 'Show Order No: ' + orderNo, order: doc[0] });
+                            res.send(doc[0]);
                          }
                      });
 };
