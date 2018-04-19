@@ -12,18 +12,21 @@ router.get('/', ctrlMain.index);
  */
 router.get('/dbtest', modelMain.dbTest);
 
+/*
+ * Deleting a transaction
+ */
+router.get('/deleteorder/:orderno', ctrlMain.get_deleteorder);
+router.post('/deleteorder/:orderno', modelMain.post_deleteorder);
 
 /*
- * GET order list page.
+ * GET list transaction page
  */
 router.get('/orderlist', modelMain.get_orderlist);
 
-
 /*
- * GET show order page.
+ * GET show a transaction
  */
 router.get('/orderlist/:order_no', modelMain.get_showorder);
-
 
 
 module.exports = router;

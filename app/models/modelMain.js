@@ -22,7 +22,30 @@ module.exports.dbTest = function (req, res, next) {
 };
 
 /*
- * GET order list page.
+ * POST delete a transaction
+ */
+module.exports.post_deleteorder = function(req, res) 
+{
+    var o_no = parseInt(req.params.orderno, 10);
+    var db = req.db;
+    var collection = db.get('transaction');
+
+    // Submit to the database.
+    collection.remove( { "order_no" : o_no },
+                       function (err, doc) 
+                       {
+                           if (err) {
+                               res.send("Delete failed.");
+                           }
+                           else {
+                               res.send("Successfully deleted Order " + doc);
+                           }
+                       });
+};
+
+
+/*
+ * GET list of transactions
  */
 module.exports.get_orderlist = function(req, res) 
 {
@@ -37,7 +60,7 @@ module.exports.get_orderlist = function(req, res)
 
 
 /*
- * GET show user page.
+ * GET show a transaction
  */
 module.exports.get_showorder = function(req, res) 
 {
