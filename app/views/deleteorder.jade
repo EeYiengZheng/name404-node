@@ -1,0 +1,7 @@
+extends Layout
+
+block content
+	h1 Delete Order
+	p OK to delete Order #{orderno}?
+	form#formDeleteOrder(name="deleteorder",method="post",action="/deleteorder/#{orderno}")
+		button#btnSubmit(type="submit") Delete

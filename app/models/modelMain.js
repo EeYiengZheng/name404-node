@@ -20,3 +20,22 @@ module.exports.dbTest = function (req, res, next) {
             }
         })
 };
+
+module.exports.post_deleteorder = function(req, res) 
+{
+    var o_no = parseInt(req.params.orderno, 10);
+    var db = req.db;
+    var collection = db.get('transaction');
+
+    // Submit to the database.
+    collection.remove( { "order_no" : o_no },
+                       function (err, doc) 
+                       {
+                           if (err) {
+                               res.send("Delete failed.");
+                           }
+                           else {
+                               res.send("Successfully deleted Order " + doc);
+                           }
+                       });
+};
