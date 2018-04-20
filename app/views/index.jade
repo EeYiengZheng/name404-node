@@ -4,3 +4,40 @@ block content
     h1= title
     br
     p #{welcome}
+
+    span(style= 'font-size: 1.2em')
+        ol#api-links
+            li
+                a(href='../orderlist/') GET: List
+                | - list all transactions
+            li
+                a(href='../orderlist/') GET: Show
+                | - show a single transaction
+                ul
+                    li usage: ../orderlist/{order_num}
+                    li e.g.: ../orderlist/123
+            li
+                a(href='../neworder/') GET: New
+                | - get the new-transaction page
+            li
+                a(href='../editorder/') GET: Edit
+                | - show the edit-a-transaction page
+                ul
+                    li usage: ../editorder/{order_num}
+                    li e.g.: ../editorder/123
+            li
+                a(href='../neworder/') POST: Create
+                | - Add a new transaction to the database with new-transaction inputs
+            li
+                a(href='../editorder/') PUT: Update
+                | - Modify a transaction with values from the edit-a-transaction page
+                ul
+                    li usage: ../editorder/{order_num}
+                    li e.g.: ../editorder/123
+            li
+                a(href='../deleteorder/') DELETE: Delete & Destroy
+                | - Remove a transaction from the server
+                ul
+                    li usage: ../deleteorder/{order_num}
+                    li e.g.: ../deleteorder/123
+

@@ -4,7 +4,11 @@ block head_addition
 
     script.
         setTimeout(function () {
-            window.location = "/orderlist/" + #{order_no};
+            if ('#{order_no}') {
+                window.location = "/orderlist/" + '#{order_no}';
+            } else {
+                window.location = "/";
+            }
         }, 2000)
 
 block content
