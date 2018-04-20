@@ -29,7 +29,6 @@ module.exports.get_orderlist = function (req, res) {
     collection.find({}, {},
         function (err, docs) {
             res.render('orderlist', {"orderlist": docs});
-            //res.send(docs);
         });
 };
 
@@ -49,7 +48,6 @@ module.exports.get_showorder = function (req, res) {
             }
             else {
                 res.render('showorder', {title: 'Show Order No: ' + orderNo, order: doc[0]});
-                //res.send(doc[0]);
             }
         });
 };
