@@ -28,5 +28,14 @@ router.get('/orderlist', modelMain.get_orderlist);
  */
 router.get('/orderlist/:order_no', modelMain.get_showorder);
 
+/*
+ * GET new order form
+ */
+router.get('/neworder', ctrlMain.get_neworder);
+
+/*
+ * GET edit order form
+ */
+router.get('/editorder/:order_no', modelMain.get_editorder);
 
 module.exports = router;

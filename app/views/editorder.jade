@@ -1,0 +1,33 @@
+extends layout
+
+block content
+    h1= title
+
+    - if (order != null || order != undefined) {
+    h2 Current order values:
+    p= "Customer ID: " + order.customer_ID
+    p= "Product Name: " + order.product_name
+    p= "Manufacturer Name: " + order.manf_name
+    p= "Quantity: " + order.quantity
+    p= "Order Date: " + order.order_date
+    p= "Customer Name: " + order.customer_name
+    p= "Date of Birth: " + order.DoB
+    p= "Zip: " + order.zip
+    p= "State: " + order.state
+    p= "City: " + order.city
+    p= "Street: " + order.street
+    p= "House No: " + order.house_no
+    p= "Customer Email: " + order.customer_email
+    br
+
+    hw2 Edit quantity:
+    form#formEditOrder(name="updateorder",method="post",action="/updateorder/#{order.order_no}")
+        
+        input#inputQuantity(type="text", value="#{order.quantity}", name="quantity")
+        br
+
+        button#btnSubmit(type="submit") submit
+    - } else {
+    h2 Order ##{orderNo} does not exist! 
+    - }
+    

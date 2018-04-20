@@ -63,11 +63,12 @@ module.exports.get_orderlist = function(req, res)
 /*
  * GET show a transaction
  */
-module.exports.get_showorder = function(req, res) 
+module.exports.get_showorder = function(req, res)
 {
     const orderNo = req.params.order_no;
     const db = req.db;
     const collection = db.get('transaction');
+
     collection.find( { order_no: parseInt(orderNo) }, 
                      function(err, doc) 
                      {
@@ -79,4 +80,26 @@ module.exports.get_showorder = function(req, res)
                              //res.send(doc[0]);
                          }
                      });
+};
+ 
+/*
+ * GET edit user form
+ */
+module.exports.get_editorder = function(req, res) 
+{
+    const orderNo = req.params.order_no;
+    const db = req.db;
+    const collection = db.get('transaction');
+    collection.find( 
+        { order_no: parseInt(orderNo) }, 
+        function(err, doc) {
+            if (err) {
+               res.send("Find failed.");
+            }
+            else {
+                console.log(doc[0])
+                res.render('editorder', { title: 'Edit Quantity of Order #' + orderNo, order: doc[0], orderNo: orderNo });
+            }
+        }
+    );
 };
