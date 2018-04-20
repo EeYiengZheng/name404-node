@@ -21,7 +21,7 @@ block content
     br
 
     hw2 Edit quantity:
-    form#formEditOrder(name="updateorder",method="post",action="/updateorder/#{order.order_no}")
+    form#formEditOrder(name="updateorder",method="post",action="/editorder/#{order.order_no}")
         
         input#inputQuantity(type="text", value="#{order.quantity}", name="quantity")
         br

@@ -2,7 +2,10 @@
  * GET home page.
  */
 module.exports.index = function (req, res, next) {
-    res.render('index', {title: 'Hello World!'});
+    res.render('index', {
+        title: 'CS 157B - Assignment 7',
+        welcome: ''
+    });
 };
 
 module.exports.get_deleteorder = function(req, res) {

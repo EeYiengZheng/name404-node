@@ -2,7 +2,7 @@ extends layout
 
 block content
     h1= title
-    form#formAddOrder(name="addorder",method="post",action="/addorder")
+    form#formAddOrder(name="neworder",method="post",action="/neworder")
         input#inputCustomerId(type="text", placeholder="customer id", name="customer_id")
         br
         input#inputOrderNo(type="text", placeholder="order number", name="order_no")
