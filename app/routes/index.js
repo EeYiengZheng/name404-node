@@ -8,11 +8,6 @@ console.log("Router:"); console.log(router);
 router.get('/', ctrlMain.index);
 
 /*
- * GET db test page
- */
-router.get('/dbtest', modelMain.dbTest);
-
-/*
  * Deleting a transaction
  */
 router.get('/deleteorder/:orderno', ctrlMain.get_deleteorder);
@@ -30,8 +25,10 @@ router.get('/orderlist/:order_no', modelMain.get_showorder);
 
 /*
  * GET new order form
+ * and POST the form
  */
 router.get('/neworder', ctrlMain.get_neworder);
+router.post('/neworder', modelMain.post_neworder);
 
 /*
  * GET edit order form

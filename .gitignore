@@ -60,3 +60,4 @@ typings/
 # IDE stuff
 .idea
 *.iml
+.project
