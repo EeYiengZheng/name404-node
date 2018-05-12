@@ -146,3 +146,22 @@ module.exports.post_neworder = (req, res, next) => {
         }
     )
 };
+
+/*
+ * GET product
+ */
+module.exports.get_showproduct = function (req, res) {
+    const productId = req.params.product_id;
+    const db = req.db;
+    const collection = db.get('testproduct');
+
+    collection.find({product_id: parseInt(productId)},
+        function (err, doc) {
+            if (err) {
+                res.send("Find failed.");
+            }
+            else {
+                res.render('showproduct', {product: doc[0]});
+            }
+        });
+};

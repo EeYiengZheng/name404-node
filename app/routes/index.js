@@ -36,4 +36,9 @@ router.post('/neworder', modelMain.post_neworder);
 router.get('/editorder/:order_no', modelMain.get_editorder);
 router.post('/editorder/:orderno', modelMain.post_updateorder);
 
+/*
+ * GET show a product
+ */
+router.get('/showproduct/:product_id', modelMain.get_showproduct);
+
 module.exports = router;

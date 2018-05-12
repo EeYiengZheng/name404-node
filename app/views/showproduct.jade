@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    h1.
+        Product Name: #{product.product_name}
+    ul
+            p= "Price: " + product.price
+            p= "Stock Count: " + product.stock_quantity
+            p= "Manufacturer: " + product.manf_name
+            p= "Supplier: " + product.supplier_name
+            p= "Category: " + product.cat_name
+            p= "Product ID: " + product.product_id
+    //
+        TODO: need quantity input + submit button for making order
+        Use this code for later:
+        form#formAddOrder(name="buyproduct",method="post",action="/buyproduct")
+        input#productquantity(type="text", placeholder="Quantity", name="quantity")
+        br
+        button#btnSubmit(type="submit") Buy
