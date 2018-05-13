@@ -28,3 +28,10 @@ module.exports.get_neworder = function (req, res) {
     res.render('neworder', {"title": 'Add New Order'});
 };
 
+/*
+ * GET login page
+ */
+module.exports.get_login = function (req, res) {
+    res.render('login', {"title": 'Login'});
+};
+

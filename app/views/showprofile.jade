@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    h1.
+        User Profile
+    ul
+            p= "Name: " + customer.cust_first + " " + customer.cust_mid + " " + customer.cust_last
+            p= "Customer ID: " + customer._id
+            p= "Customer Email: " + customer.customer_email
+            p= "Zip: " + customer.zip
+            p= "State: " + customer.state
+            p= "City: " + customer.city
+            p= "Street: " + customer.street
+            p= "House No: " + customer.house_no
+            
+    h1.
+        Transaction History
+    //
+        TODO: Transaction history

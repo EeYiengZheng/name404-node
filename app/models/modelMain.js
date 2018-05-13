@@ -14,11 +14,11 @@ module.exports.get_home = function (req, res) {
     		function (err, docs) {
     			if(req.query.keyword === undefined) //no selection - don't send any products
     				collection.find({}, function(err, cats){ //query DB to find categories
-    					res.render('home', {"product_list": {}, "category_list": cats})
+    					res.render('home', {"product_list": {}, "category_list": cats, "currentUserObj": req.session.currentUserObj})
     				});
     			else //find products based on category and keyword
     				collection.find({}, function(err, cats){ //query DB to find categories
-    					res.render('home', {"product_list": docs, "category_list": cats})
+    					res.render('home', {"product_list": docs, "category_list": cats, "currentUserObj": req.session.currentUserObj})
     				});
    	});
 };
@@ -186,7 +186,47 @@ module.exports.get_showproduct = function (req, res) {
                 res.send("Find failed.");
             }
             else {
-                res.render('showproduct', {product: doc[0]});
+                res.render('showproduct', {product: doc[0], "currentUserObj": req.session.currentUserObj});
+            }
+        });
+};
+/*
+ * POST login
+ */
+module.exports.post_login = function (req, res) {
+    const email = req.body.email;
+    const password = req.body.password;
+    const db = req.db;
+    const collection = db.get('testaccount');
+
+    collection.find({"customer_email": email, "password": password},
+        function (err, doc) {
+            if (err) {
+                res.send("Find failed.");
+            }
+            else {
+                var custObj = {"customer_id": doc[0].customer_id, "customer_email": doc[0].customer_email};
+                req.session.currentUserObj = custObj;
+                req.session.save();
+                res.render('home', {"product_list": {}, "currentUserObj": req.session.currentUserObj });
+            }
+        });
+};
+/*
+ * GET profile
+ */
+module.exports.get_showprofile = function (req, res) {
+    const customerId = req.params.customer_id;
+    const db = req.db;
+    const collection = db.get('testcustomer');
+
+    collection.find({_id: customerId},
+        function (err, doc) {
+            if (err) {
+                res.send("Find failed.");
+            }
+            else {
+                res.render('showprofile', {customer: doc[0], "currentUserObj": req.session.currentUserObj});
             }
         });
 };

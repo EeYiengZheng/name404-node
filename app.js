@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const expressSession = require('express-session');
 
 const indexRouter = require('./app/routes/index');
 
@@ -14,9 +15,17 @@ const monk = require('monk');
 const url = 'name404:sesame@ds243049.mlab.com:43049/name404';
 const db = monk(url);
 
+// express session to save session data
+app.use(expressSession({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}));
+
 //Make the database accessible to the router.
 app.use(function(req, res, next) {
     req.db = db;
+    console.log(req.session.currentUserObj);
     next();
 });
 
@@ -47,5 +56,7 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
+
 
 module.exports = app;

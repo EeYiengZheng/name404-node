@@ -7,4 +7,11 @@ html
     body
         span(style='font-size:2.0em')
             a(href='/') Home
+    - if (currentUserObj != undefined) {
+        p   Logged in as #{currentUserObj.customer_email} 
+            a(href='/showprofile/#{currentUserObj.customer_id}') [View Profile/Transaction History]
+    - } else {
+        p   
+            a(href='/login') Log In 
+    - }
         block content

@@ -40,5 +40,16 @@ router.get('/', modelMain.get_home);
  * GET show a product
  */
 router.get('/showproduct/:product_id', modelMain.get_showproduct);
+/*
+ * GET login page
+ * POST login data
+ */
+router.get('/login', ctrlMain.get_login);
+router.post('/login', modelMain.post_login);
+/*
+ * GET show a profile: customer details and transaction history
+ */
+router.get('/showprofile/:customer_id', modelMain.get_showprofile);
+
 
 module.exports = router;
