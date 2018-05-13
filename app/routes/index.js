@@ -36,6 +36,10 @@ router.post('/editorder/:orderno', modelMain.post_updateorder);
 /* GET home page. */
 router.get('/', modelMain.get_home);
 
+
+/* GET admin page. */
+router.get('/admin', modelMain.get_admin);
+
 /*
  * GET show a product
  */
@@ -43,13 +47,14 @@ router.get('/showproduct/:product_id', modelMain.get_showproduct);
 /*
  * GET login page
  * POST login data
+ * POST admin login data
  */
 router.get('/login', ctrlMain.get_login);
 router.post('/login', modelMain.post_login);
+router.post('/adminlogin', modelMain.post_admin_login);
 /*
  * GET show a profile: customer details and transaction history
  */
 router.get('/showprofile/:customer_id', modelMain.get_showprofile);
-
 
 module.exports = router;

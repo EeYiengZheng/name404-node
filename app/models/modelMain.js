@@ -23,6 +23,18 @@ module.exports.get_home = function (req, res) {
    	});
 };
 
+/*
+ * GET admin page
+ */
+module.exports.get_admin = function (req, res) {
+    if (!req.session.currentUserObj.isAdmin) {
+        res.send("Access Denied");
+    }
+
+    res.render('admin', {"currentUserObj" : req.session.currentUserObj});
+};
+
+
 
 /*
  * POST delete a transaction
@@ -205,13 +217,38 @@ module.exports.post_login = function (req, res) {
                 res.send("Find failed.");
             }
             else {
-                var custObj = {"customer_id": doc[0].customer_id, "customer_email": doc[0].customer_email};
+                var custObj = {"customer_id": doc[0].customer_id, "customer_email": doc[0].customer_email, "isAdmin": false};
                 req.session.currentUserObj = custObj;
                 req.session.save();
                 res.redirect('/');
             }
         });
 };
+
+/*
+ * POST admin login
+ */
+module.exports.post_admin_login = function (req, res) {
+    const email = req.body.email;
+    const password = req.body.password;
+    const db = req.db;
+    const collection = db.get('testaccount');
+
+    collection.find({"customer_email": email, "password": password, "isAdmin": true},
+        function (err, doc) {
+            if (err) {
+                res.send("Find failed.");
+            }
+            else {
+                var custObj = {"customer_id": doc[0].customer_id, "customer_email": doc[0].customer_email, "isAdmin" : true};
+                req.session.currentUserObj = custObj;
+                req.session.save();
+                res.redirect('/admin');
+            }
+        });
+};
+
+
 /*
  * GET profile
  */
