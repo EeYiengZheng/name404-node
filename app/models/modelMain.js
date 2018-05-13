@@ -213,7 +213,6 @@ module.exports.post_createproduct = function(req, res) {
             if (err) {
                 res.send("Create product failed");
             } else {
-                console.log(doc);
                 res.redirect('/showproduct/' + doc._id);
             }
         }
