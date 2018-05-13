@@ -51,6 +51,12 @@ router.get('/showproduct/:product_id', modelMain.get_showproduct);
  */
 router.post('/createproduct', modelMain.post_createproduct);
 
+
+/*
+ * POST delete a product
+ */
+router.post('/deleteproduct', modelMain.post_deleteproduct);
+
 /*
  * GET login page
  * POST login data

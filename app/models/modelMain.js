@@ -219,6 +219,55 @@ module.exports.post_createproduct = function(req, res) {
     )
 }
 
+
+module.exports.post_deleteproduct = function(req, res) {
+    if (!req.session.currentUserObj.isAdmin) {
+        res.send("Access Denied");
+    }
+
+    const productName = req.body.productname;
+    const manufacturer = req.body.manufacturer;
+    const quantity = req.body.quantity;
+
+    var db = req.db;
+    var collection = db.get('testproduct');
+
+    //Remove product entirely if no quantity was entered
+    if (quantity == '') {
+        collection.remove({"product_name": productName, "manf_name" : manufacturer},
+            function (err, doc) {
+                if (err) {
+                    res.send("Delete failed.");
+                }
+                else {
+                    res.send("Successfully deleted product<br>" + doc + "<br><a href='/admin'>Return to admin home</a>");
+                }
+            });
+    }
+    //Decrement stock by quantity specified
+    else {
+        const parsed_quantity = parseInt(quantity);
+        if (isNaN(parsed_quantity)) {
+            res.send("Quantity must be a number or left blank.");
+        }
+        else if (parsed_quantity <= 0) {
+            res.send("Quantity must be greater than 0.");
+        }
+        else {
+            collection.update({"product_name": productName, "manf_name" : manufacturer}, {$inc: {"stock_quantity": -1 * parsed_quantity}},
+                function (err, doc) {
+                    if (err) {
+                        res.send("Delete failed.");
+                    }
+                    else {
+                        res.send("Successfully decremented stock by " + parsed_quantity + "<br><a href='/admin'>Return to admin home</a>");
+                    }
+                });
+        }
+    }
+};
+
+
 /*
  * GET product
  */

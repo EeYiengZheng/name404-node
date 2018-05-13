@@ -28,4 +28,23 @@ block content
     h2 Delete Product
     br
     span
-        b TODO
+        form#delete_prod(name="delete_prod", method="post", action="/deleteproduct")
+            b Product Name: 
+            input(type="text", name="productname")
+            br
+            b Manufacturer: 
+            input(type="text", name="manufacturer")
+            br
+            b Quantity:
+            input(type="text", name="quantity")
+            br
+            button#btnSubmit(type="submit") Delete Product
+
+    h2 Delete Category
+    br
+    span
+        form#delete_prod(name="delete_prod", method="post", action="/deleteproduct")
+            b Category:
+            input(type="text", name="category")
+            br
+            button#btnSubmit(type="submit") Delete Category
