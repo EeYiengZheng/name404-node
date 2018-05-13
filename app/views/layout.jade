@@ -10,6 +10,8 @@ html
     - if (currentUserObj != undefined) {
         p   Logged in as #{currentUserObj.customer_email} 
             a(href='/showprofile/#{currentUserObj.customer_id}') [View Profile/Transaction History]
+            br
+            a(href='/logout') Log Out
     - } else {
         p   
             a(href='/login') Log In 
