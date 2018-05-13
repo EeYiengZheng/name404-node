@@ -208,7 +208,7 @@ module.exports.post_login = function (req, res) {
                 var custObj = {"customer_id": doc[0].customer_id, "customer_email": doc[0].customer_email};
                 req.session.currentUserObj = custObj;
                 req.session.save();
-                res.render('home', {"product_list": {}, "currentUserObj": req.session.currentUserObj });
+                res.redirect('/');
             }
         });
 };
