@@ -12,10 +12,14 @@ module.exports.get_home = function (req, res) {
 
     	collection.find({$and: [{"product_name": keyw}, {"cat_name": cat}] },
     		function (err, docs) {
-    			if(req.query.keyword === undefined)
-    				res.render('home', {"product_list": {} });
-    			else
-    				res.render('home', {"product_list": docs});
+    			if(req.query.keyword === undefined) //no selection - don't send any products
+    				collection.find({}, function(err, cats){ //query DB to find categories
+    					res.render('home', {"product_list": {}, "category_list": cats})
+    				});
+    			else //find products based on category and keyword
+    				collection.find({}, function(err, cats){ //query DB to find categories
+    					res.render('home', {"product_list": docs, "category_list": cats})
+    				});
    	});
 };
 
