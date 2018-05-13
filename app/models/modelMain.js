@@ -155,7 +155,7 @@ module.exports.get_showproduct = function (req, res) {
     const db = req.db;
     const collection = db.get('testproduct');
 
-    collection.find({product_id: parseInt(productId)},
+    collection.find({_id: productId},
         function (err, doc) {
             if (err) {
                 res.send("Find failed.");
