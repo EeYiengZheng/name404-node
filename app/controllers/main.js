@@ -1,7 +1,7 @@
 /*
- * GET home page.
+ * GET old home page.
  */
-module.exports.index = function (req, res, next) {
+/*module.exports.index = function (req, res, next) {
     res.render('index', {
         title: 'CS 157B - Assignment 7',
         welcome: 'Click on links below to access the required REST API calls',
@@ -15,7 +15,7 @@ module.exports.index = function (req, res, next) {
             delete: '../deleteorder/'
         }
     });
-};
+};*/
 
 module.exports.get_deleteorder = function (req, res) {
     var o_no = req.params.orderno;

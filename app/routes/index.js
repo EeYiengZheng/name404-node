@@ -4,9 +4,6 @@ const ctrlMain = require("../controllers/main");
 const modelMain = require("../models/modelMain");
 console.log("Router:"); console.log(router);
 
-/* GET home page. */
-router.get('/', ctrlMain.index);
-
 /*
  * Deleting a transaction
  */
@@ -35,5 +32,8 @@ router.post('/neworder', modelMain.post_neworder);
  */
 router.get('/editorder/:order_no', modelMain.get_editorder);
 router.post('/editorder/:orderno', modelMain.post_updateorder);
+
+/* GET home page. */
+router.get('/', modelMain.get_home);
 
 module.exports = router;

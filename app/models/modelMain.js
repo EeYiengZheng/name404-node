@@ -1,3 +1,24 @@
+/*
+ * GET all orders by category and keyword
+ */
+module.exports.get_home = function (req, res) {
+	var keyw = req.query.keyword == null ? /.*/ : new RegExp(req.query.keyword);
+	var cat = req.query.category == null ? /.*/ : req.query.category;
+	if(cat === "all_categories")
+		cat = /.*/;
+	
+    var db = req.db;
+    var collection = db.get('testproduct');
+
+    	collection.find({$and: [{"product_name": keyw}, {"cat_name": cat}] },
+    		function (err, docs) {
+    			if(req.query.keyword === undefined)
+    				res.render('home', {"product_list": {} });
+    			else
+    				res.render('home', {"product_list": docs});
+   	});
+};
+
 
 /*
  * POST delete a transaction
