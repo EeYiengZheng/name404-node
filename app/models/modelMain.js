@@ -267,6 +267,27 @@ module.exports.post_deleteproduct = function(req, res) {
     }
 };
 
+module.exports.post_deletecategory = function(req, res) {
+    if (!req.session.currentUserObj.isAdmin) {
+        res.send("Access Denied");
+    }
+
+    const category = req.body.category;
+
+    var db = req.db;
+    var collection = db.get('testproduct');
+
+    collection.remove({"cat_name": category},
+        function (err, doc) {
+            if (err) {
+                res.send("Delete failed.");
+            }
+            else {
+                res.send("Successfully deleted category<br>" + doc + "<br><a href='/admin'>Return to admin home</a>");
+            }
+        });
+};
+
 
 /*
  * GET product

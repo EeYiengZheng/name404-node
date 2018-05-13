@@ -6,22 +6,22 @@ block content
     span
         form#new_prod(name="new_prod",method="post",action="/createproduct")
             b Product Name: 
-            input(type="text", name="productname")
+            input(type="text", name="productname" required)
             br
             b Price: 
-            input(type="text", name="price") 
+            input(type="text", name="price" required) 
             br
             b Stock Count: 
-            input(type="text", name="stock")
+            input(type="text", name="stock" required)
             br
             b Manufacturer: 
-            input(type="text", name="manufacturer") 
+            input(type="text", name="manufacturer" required) 
             br
             b Supplier: 
-            input(type="text", name="supplier")
+            input(type="text", name="supplier" required)
             br
             b Category: 
-            input(type="text", name="category") 
+            input(type="text", name="category" required) 
             br
             button#btnSubmit(type="submit") Create Product
 
@@ -30,12 +30,12 @@ block content
     span
         form#delete_prod(name="delete_prod", method="post", action="/deleteproduct")
             b Product Name: 
-            input(type="text", name="productname")
+            input(type="text", name="productname" required)
             br
             b Manufacturer: 
-            input(type="text", name="manufacturer")
+            input(type="text", name="manufacturer" required)
             br
-            b Quantity:
+            b (Optional) Quantity:
             input(type="text", name="quantity")
             br
             button#btnSubmit(type="submit") Delete Product
@@ -43,8 +43,8 @@ block content
     h2 Delete Category
     br
     span
-        form#delete_prod(name="delete_prod", method="post", action="/deleteproduct")
+        form#delete_prod(name="delete_prod", method="post", action="/deletecategory")
             b Category:
-            input(type="text", name="category")
+            input(type="text", name="category" required)
             br
             button#btnSubmit(type="submit") Delete Category

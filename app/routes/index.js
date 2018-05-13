@@ -58,6 +58,11 @@ router.post('/createproduct', modelMain.post_createproduct);
 router.post('/deleteproduct', modelMain.post_deleteproduct);
 
 /*
+ * POST delete a category
+ */
+router.post('/deletecategory', modelMain.post_deletecategory);
+
+/*
  * GET login page
  * POST login data
  */
