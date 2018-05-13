@@ -4,7 +4,16 @@ block content
 	h1 Online Shopping
 	br 
 	span 
+		h3 User Login
 		form#login(name="login",method="post",action="/login")
+			input(type="text", name="email", placeholder= "Email")
+			br
+			input(type="password", name="password", placeholder= "Password") 
+			br
+			button#btnSubmit(type="submit") Login
+	span 
+		h3 Admin Login
+		form#login(name="login",method="post",action="/adminlogin")
 			input(type="text", name="email", placeholder= "Email")
 			br
 			input(type="password", name="password", placeholder= "Password") 
