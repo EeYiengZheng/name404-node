@@ -184,6 +184,42 @@ module.exports.post_neworder = (req, res, next) => {
     )
 };
 
+module.exports.post_createproduct = function(req, res) {
+    if (!req.session.currentUserObj.isAdmin) {
+        res.send("Access Denied");
+    }
+
+    //New product params
+    const productName = req.body.productname;
+    const price = req.body.price;
+    const stock = req.body.stock;
+    const manufacturer = req.body.manufacturer;
+    const supplier = req.body.supplier;
+    const category = req.body.category;
+
+    //db operations
+    const db = req.db;
+    const collection = db.get('testproduct');
+    collection.insert(
+        {
+            "product_name": productName,
+            "price": price,
+            "manf_name": manufacturer,
+            "supplier_name": supplier,
+            "stock_quantity": parseInt(stock),
+            "cat_name": category
+        },
+        (err, doc) => {
+            if (err) {
+                res.send("Create product failed");
+            } else {
+                console.log(doc);
+                res.redirect('/showproduct/' + doc._id);
+            }
+        }
+    )
+}
+
 /*
  * GET product
  */

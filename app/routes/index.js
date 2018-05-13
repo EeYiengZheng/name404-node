@@ -44,6 +44,13 @@ router.get('/admin', modelMain.get_admin);
  * GET show a product
  */
 router.get('/showproduct/:product_id', modelMain.get_showproduct);
+
+
+/*
+ * POST create a product
+ */
+router.post('/createproduct', modelMain.post_createproduct);
+
 /*
  * GET login page
  * POST login data

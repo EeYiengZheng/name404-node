@@ -1,9 +1,31 @@
 extends layout
 
 block content
-    p
-        a(href='/') New Product
-    p 
-        a(href='/') Edit Products
-    p 
-        a(href='/') Delete Products
+    h2 New Product
+    br
+    span
+        form#new_prod(name="new_prod",method="post",action="/createproduct")
+            b Product Name: 
+            input(type="text", name="productname")
+            br
+            b Price: 
+            input(type="text", name="price") 
+            br
+            b Stock Count: 
+            input(type="text", name="stock")
+            br
+            b Manufacturer: 
+            input(type="text", name="manufacturer") 
+            br
+            b Supplier: 
+            input(type="text", name="supplier")
+            br
+            b Category: 
+            input(type="text", name="category") 
+            br
+            button#btnSubmit(type="submit") Create Product
+
+    h2 Delete Product
+    br
+    span
+        b TODO
