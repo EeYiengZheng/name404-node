@@ -202,13 +202,19 @@ module.exports.post_login = function (req, res) {
     collection.find({"customer_email": email, "password": password},
         function (err, doc) {
             if (err) {
-                res.send("Find failed.");
+                	res.send("Find failed.");
             }
             else {
-                var custObj = {"customer_id": doc[0].customer_id, "customer_email": doc[0].customer_email};
-                req.session.currentUserObj = custObj;
-                req.session.save();
-                res.redirect('/');
+            		if(doc[0] === undefined && (email === "" || password === "")) //no username/password entered - error
+            			res.render('login', {"error": "No Username and/or Password was Entered" });
+            		else if(doc[0] === undefined) //incorrect username/password - error
+            			res.render('login', {"error": "Username and/or Password is Incorrect" }); 
+            		else{
+            			var custObj = {"customer_id": doc[0].customer_id, "customer_email": doc[0].customer_email};
+                		req.session.currentUserObj = custObj;
+                		req.session.save();
+                		res.redirect('/');
+            		}	
             }
         });
 };

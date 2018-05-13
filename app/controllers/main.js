@@ -32,6 +32,6 @@ module.exports.get_neworder = function (req, res) {
  * GET login page
  */
 module.exports.get_login = function (req, res) {
-    res.render('login', {"title": 'Login'});
+    res.render('login', {"title": 'Login', "error": "" });
 };
 
