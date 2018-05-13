@@ -273,6 +273,14 @@ module.exports.post_login = function (req, res) {
 };
 
 /*
+ * POST log out
+ */
+module.exports.post_logout = function (req, res) {
+	req.session.destroy();
+	res.redirect('/');
+}
+
+/*
  * GET profile
  */
 module.exports.get_showprofile = function (req, res) {

@@ -59,6 +59,11 @@ router.get('/login', ctrlMain.get_login);
 router.post('/login', modelMain.post_login);
 
 /*
+ * POST sign out
+ */
+router.get('/logout', modelMain.post_logout);
+
+/*
  * GET show a profile: customer details and transaction history
  */
 router.get('/showprofile/:customer_id', modelMain.get_showprofile);
