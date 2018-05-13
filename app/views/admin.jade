@@ -36,7 +36,7 @@ block content
             input(type="text", name="manufacturer" required)
             br
             b (Optional) Quantity:
-            input(type="text", name="quantity")
+            input(type="text", name="quantity" placeholder="Leave blank to delete")
             br
             button#btnSubmit(type="submit") Delete Product
 
@@ -44,6 +44,8 @@ block content
     br
     span
         form#delete_prod(name="delete_prod", method="post", action="/deletecategory")
+            b Warning: Deletes all products in the specified category
+            br
             b Category:
             input(type="text", name="category" required)
             br
