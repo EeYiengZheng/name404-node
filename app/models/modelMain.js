@@ -250,40 +250,28 @@ module.exports.post_login = function (req, res) {
     collection.find({"customer_email": email, "password": password},
         function (err, doc) {
             if (err) {
-                res.send("Find failed.");
+                	res.send("Find failed.");
             }
             else {
-                var custObj = {"customer_id": doc[0].customer_id, "customer_email": doc[0].customer_email, "isAdmin": false};
-                req.session.currentUserObj = custObj;
-                req.session.save();
-                res.redirect('/');
+            		if(doc[0] === undefined && (email === "" || password === "")) //no username/password entered - error
+            			res.render('login', {"error": "No Username and/or Password was Entered" });
+            		else if(doc[0] === undefined) //incorrect username/password - error
+            			res.render('login', {"error": "Username and/or Password is Incorrect" }); 
+            		else{ //valid user - save info and redirect to appropriate page
+            			var custObj = doc[0].isAdmin ? {"customer_id": doc[0].customer_id, "customer_email": doc[0].customer_email, "isAdmin": true} :
+            				{"customer_id": doc[0].customer_id, "customer_email": doc[0].customer_email, "isAdmin": false};
+                		req.session.currentUserObj = custObj;
+                		req.session.save();
+                		
+                		//check whether user is customer or admin
+                		if(doc[0].isAdmin)
+                			res.redirect('/admin');
+                		else
+                			res.redirect('/');
+            		}	
             }
         });
 };
-
-/*
- * POST admin login
- */
-module.exports.post_admin_login = function (req, res) {
-    const email = req.body.email;
-    const password = req.body.password;
-    const db = req.db;
-    const collection = db.get('testaccount');
-
-    collection.find({"customer_email": email, "password": password, "isAdmin": true},
-        function (err, doc) {
-            if (err) {
-                res.send("Find failed.");
-            }
-            else {
-                var custObj = {"customer_id": doc[0].customer_id, "customer_email": doc[0].customer_email, "isAdmin" : true};
-                req.session.currentUserObj = custObj;
-                req.session.save();
-                res.redirect('/admin');
-            }
-        });
-};
-
 
 /*
  * GET profile

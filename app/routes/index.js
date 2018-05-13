@@ -54,11 +54,10 @@ router.post('/createproduct', modelMain.post_createproduct);
 /*
  * GET login page
  * POST login data
- * POST admin login data
  */
 router.get('/login', ctrlMain.get_login);
 router.post('/login', modelMain.post_login);
-router.post('/adminlogin', modelMain.post_admin_login);
+
 /*
  * GET show a profile: customer details and transaction history
  */
