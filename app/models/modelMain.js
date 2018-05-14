@@ -2,7 +2,7 @@
  * GET all orders by category and keyword
  */
 module.exports.get_home = function (req, res) {
-	var keyw = req.query.keyword == null ? /.*/ : new RegExp(req.query.keyword);
+	var keyw = req.query.keyword == null ? /.*/ : new RegExp(req.query.keyword, 'i');
 	var cat = req.query.category == null ? /.*/ : req.query.category;
 	if(cat === "all_categories")
 		cat = /.*/;
