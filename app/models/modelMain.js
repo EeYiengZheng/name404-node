@@ -2,25 +2,44 @@
  * GET all orders by category and keyword
  */
 module.exports.get_home = function (req, res) {
-	var keyw = req.query.keyword == null ? /.*/ : new RegExp(req.query.keyword, 'i');
-	var cat = req.query.category == null ? /.*/ : req.query.category;
-	if(cat === "all_categories")
-		cat = /.*/;
-	
+    var keyw = req.query.keyword == null ? /.*/ : new RegExp(req.query.keyword, 'i');
+    var cat = req.query.category == null ? /.*/ : req.query.category;
+    if (cat === "all_categories")
+        cat = /.*/;
+
     var db = req.db;
     var collection = db.get('testproduct');
 
-    	collection.find({$and: [{"product_name": keyw}, {"cat_name": cat}] },
-    		function (err, docs) {
-    			if(req.query.keyword === undefined) //no selection - don't send any products
-    				collection.find({}, function(err, cats){ //query DB to find categories
-    					res.render('home', {"product_list": {}, "category_list": cats, "currentUserObj": req.session.currentUserObj})
-    				});
-    			else //find products based on category and keyword
-    				collection.find({}, function(err, cats){ //query DB to find categories
-    					res.render('home', {"product_list": docs, "category_list": cats, "currentUserObj": req.session.currentUserObj})
-    				});
-   	});
+    function uniq_cats(cats) {
+        const len = cats.length;
+        let set = new Set();
+        for (let key = 0; key < len; key++) {
+            set.add(cats[key].cat_name);
+        }
+        return Array.from(set);
+    }
+
+    collection.find({$and: [{"product_name": keyw}, {"cat_name": cat}]},
+        function (err, docs) {
+            if (req.query.keyword === undefined) //no selection - don't send any products
+                collection.find({}, function (err, cats) { //query DB to find categories
+                    res.render('home', {
+                        "product_list": {},
+                        "category_list": cats,
+                        "uniq_cats": uniq_cats(cats),
+                        "currentUserObj": req.session.currentUserObj
+                    })
+                });
+            else //find products based on category and keyword
+                collection.find({}, function (err, cats) { //query DB to find categories
+                    res.render('home', {
+                        "product_list": docs,
+                        "category_list": cats,
+                        "uniq_cats": uniq_cats(cats),
+                        "currentUserObj": req.session.currentUserObj
+                    })
+                });
+        });
 };
 
 /*
