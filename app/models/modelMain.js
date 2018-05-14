@@ -166,7 +166,17 @@ module.exports.post_neworder = (req, res, next) => {
             if (err) {
                 res.send("Add order failed");
             } else {
-                res.render('neworder_success', {confirmation: 'purchased ' + q + ' items'});
+                const product = db.get('testproduct');
+                product.find({_id: pid}, (err, doc) => {
+                    if (err || parseInt(q) > doc[0].stock_quantity) {
+                        res.send("Unable to purchase due to an error. Make sure you are not trying to buy more than available");
+                    } else {
+                        product.update({_id: pid}, {$set: {stock_quantity: doc[0].stock_quantity - q}})
+                            .then(() => {
+                                res.render('neworder_success', {confirmation: 'purchased ' + q + ' items'});
+                            })
+                    }
+                });
             }
         }
     )

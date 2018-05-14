@@ -17,5 +17,5 @@ block content
         p Order Date: #{date.getFullYear()}-#{FormatNumberLength(date.getMonth()+1, 2)}-#{FormatNumberLength(date.getDate(), 2)}
         p Order Time: #{FormatNumberLength(date.getHours(), 2)}:#{FormatNumberLength(date.getMinutes(),2)}:#{FormatNumberLength(date.getSeconds(),2)}
         p= "Quantity: " + order.quantity
-        p product:
+        p= "product: "
             a(href="/showproduct/" + order.product_id) #{order.product_id}
