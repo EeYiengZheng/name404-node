@@ -11,11 +11,3 @@ __Run__
 __URL__  
     http://localhost:3000/  
     
-__REST API__  
-    list:       /orderlist  
-    show:       /orderlist/<order_no>  
-    new:        
-    edit:       
-    create:     
-    update:     
-    destroy:    /deleteorder/<order_no>  

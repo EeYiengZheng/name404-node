@@ -138,47 +138,28 @@ module.exports.get_editorder = function (req, res) {
  */
 module.exports.post_neworder = (req, res, next) => {
     // new order fields
-    const id = req.body.customer_id;
-    const o_no = req.body.order_no;
-    const p_name = req.body.product_name;
-    const m_name = req.body.manf_name;
+    const cid = req.body.cid;
+    const pid = req.body.pid;
     const q = req.body.quantity;
-    const o_date = req.body.order_date;
-    const c_name = req.body.customer_name;
-    const dob = req.body.dob;
-    const zip = req.body.zip;
-    const state = req.body.state;
-    const city = req.body.city;
-    const street = req.body.street;
-    const h_no = req.body.house_no;
-    const email = req.body.customer_email;
+    const total = req.body.total;
 
     // database operations
     const db = req.db;
-    const collection = db.get('transaction');
+    const collection = db.get('testorder');
 
     collection.insert(
         {
-            "customer_ID": parseInt(id),
-            "order_no": parseInt(o_no),
-            "product_name": p_name,
-            "manf_name": m_name,
-            "quantity": parseInt(q),
-            "order_date": o_date,
-            "customer_name": c_name,
-            "DoB": dob,
-            "zip": parseInt(zip),
-            "state": state,
-            "city": city,
-            "street": street,
-            "house_no": h_no,
-            "customer_email": email
+            "order_datetime": new Date(Date.now()).toISOString(),
+            "quantity": q,
+            "total_cost": total,
+            "customer_id": cid,
+            "product_id": pid
         },
         (err, doc) => {
             if (err) {
                 res.send("Add order failed");
             } else {
-                res.render('neworder_success', {order_no: o_no});
+                res.render('neworder_success', {confirmation: 'purchased ' + q + ' items'});
             }
         }
     )
@@ -348,7 +329,7 @@ module.exports.post_login = function (req, res) {
 module.exports.post_logout = function (req, res) {
 	req.session.destroy();
 	res.redirect('/');
-}
+};
 
 /*
  * GET profile
@@ -367,4 +348,11 @@ module.exports.get_showprofile = function (req, res) {
                 res.render('showprofile', {customer: doc[0], "currentUserObj": req.session.currentUserObj});
             }
         });
+};
+
+/*
+ * POST confirm buyproduct
+ */
+module.exports.post_buyproduct = (req, res) => {
+    const user_id = req.session.currentUserObj.customer_id
 };

@@ -79,4 +79,10 @@ router.get('/logout', modelMain.post_logout);
  */
 router.get('/showprofile/:customer_id', modelMain.get_showprofile);
 
+/*
+ * GET/POST the buyproduct confirmation page
+ */
+router.get('/buyproduct', ctrlMain.get_buyproduct);
+router.post('/buyproduct', modelMain.post_buyproduct);
+
 module.exports = router;

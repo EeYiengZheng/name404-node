@@ -10,10 +10,15 @@ block content
             p= "Supplier: " + product.supplier_name
             p= "Category: " + product.cat_name
             p= "Product ID: " + product._id
-    //
-        TODO: need quantity input + submit button for making order
-        Use this code for later:
-        form#formAddOrder(name="buyproduct",method="post",action="/buyproduct")
+
+    // TODO: need quantity input + submit button for making order
+    // Use this code for later:
+
+    form#formAddOrder(name="buyproduct", method="get", action="/buyproduct")
         input#productquantity(type="text", placeholder="Quantity", name="quantity")
+        input#productname(type='hidden', name='name', value=product.product_name)
+        - var pricestr = product.price.replace('$','')
+        input#productprice(type='hidden', name='price', value=pricestr)
+        input#productid(type='hidden', name='id', value=product._id)
         br
         button#btnSubmit(type="submit") Buy
