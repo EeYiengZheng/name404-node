@@ -10,6 +10,12 @@ block content
             p= "Supplier: " + product.supplier_name
             p= "Category: " + product.cat_name
             p= "Product ID: " + product._id
+
+    - if (currentUserObj != undefined && currentUserObj.isAdmin) {
+        form#formEditProduct(name="editproduct",method="get",action="/editproduct/" + product._id)
+            button#btnSubmit(type="submit") Edit
+    - }
+
     //
         TODO: need quantity input + submit button for making order
         Use this code for later:
