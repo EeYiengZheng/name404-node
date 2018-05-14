@@ -65,7 +65,9 @@ module.exports.get_orderlist = function (req, res) {
     const collection = db.get('transaction');
     collection.find({}, {},
         function (err, docs) {
-            res.render('orderlist', {"orderlist": docs});
+            res.render('orderlist', {
+                "orderlist": docs,
+            });
         });
 };
 
@@ -74,17 +76,22 @@ module.exports.get_orderlist = function (req, res) {
  * GET show a transaction
  */
 module.exports.get_showorder = function (req, res) {
-    const orderNo = req.params.order_no;
+    const orderId = req.params.order_id;
     const db = req.db;
-    const collection = db.get('transaction');
+    const collection = db.get('testorder');
 
-    collection.find({order_no: parseInt(orderNo)},
+    collection.find({_id: orderId},
         function (err, doc) {
             if (err) {
                 res.send("Find failed.");
             }
             else {
-                res.render('showorder', {title: 'Show Order No: ' + orderNo, order: doc[0]});
+                console.log(doc[0])
+                res.render('showorder', {
+                    title: 'Show Order No: ' + orderId,
+                    order: doc[0],
+                    currentUserObj: req.session.currentUserObj
+                });
             }
         });
 };
@@ -393,22 +400,33 @@ module.exports.post_logout = function (req, res) {
 module.exports.get_showprofile = function (req, res) {
     const customerId = req.params.customer_id;
     const db = req.db;
-    const collection = db.get('testcustomer');
+    let collection = db.get('testcustomer');
 
     collection.find({_id: customerId},
-        function (err, doc) {
+        function (err, doc, next) {
             if (err) {
                 res.send("Find failed.");
             }
             else {
-                res.render('showprofile', {customer: doc[0], "currentUserObj": req.session.currentUserObj});
+                let customer = doc[0];
+                collection = db.get('testorder');
+                collection.find({customer_id: customerId},
+                    {limit: 10, sort: {order_datetime: -1}}, function (err, doc, next) {
+                        if (err) {
+                            res.send("Unable to retrieve orders");
+                        }
+                        else {
+                            console.log(customer);
+                            console.log(doc[0]);
+                            res.render('showprofile',
+                                {
+                                    customer: customer,
+                                    currentUserObj : req.session.currentUserObj,
+                                    orders: doc
+                                }
+                            );
+                        }
+                    })
             }
         });
-};
-
-/*
- * POST confirm buyproduct
- */
-module.exports.post_buyproduct = (req, res) => {
-    const user_id = req.session.currentUserObj.customer_id
 };

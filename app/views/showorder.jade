@@ -1,19 +1,21 @@
 extends layout
 
 block content
-    h1.
-        Order No. #{order.order_no}
+    if (currentUserObj)
+        - var oid = order._id.toString()
+        - var date = new Date(order.order_datetime)
+        - function FormatNumberLength(num, length) {
+        -     var r = "" + num;
+        -     while (r.length < length) {
+        -         r = "0" + r;
+        -     }
+        -     return r;
+        - }
+
+    h1= "Order number: " + "..." + oid.substring(oid.length - 5, oid.length)
     ul
-            p= "Customer ID: " + order.customer_ID
-            p= "Product Name: " + order.product_name
-            p= "Manufacturer Name: " + order.manf_name
-            p= "Quantity: " + order.quantity
-            p= "Order Date: " + order.order_date
-            p= "Customer Name: " + order.customer_name
-            p= "Date of Birth: " + order.DoB
-            p= "Zip: " + order.zip
-            p= "State: " + order.state
-            p= "City: " + order.city
-            p= "Street: " + order.street
-            p= "House No: " + order.house_no
-            p= "Customer Email: " + order.customer_email
+        p Order Date: #{date.getFullYear()}-#{FormatNumberLength(date.getMonth(), 2)}-#{FormatNumberLength(date.getDate(), 2)}
+        p Order Time: #{FormatNumberLength(date.getHours(), 2)}:#{FormatNumberLength(date.getMinutes(),2)}:#{FormatNumberLength(date.getSeconds(),2)}
+        p= "Quantity: " + order.quantity
+        p product:
+            a(href="/showproduct/" + order.product_id) #{order.product_id}

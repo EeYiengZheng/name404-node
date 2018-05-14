@@ -58,7 +58,8 @@ module.exports.get_buyproduct = function (req, res) {
                     price: pr,
                     id: id,
                     user: user
-                }
+                },
+                currentUserObj: req.session.currentUserObj
             });
     } else {
         res.redirect('showproduct/' + id);
