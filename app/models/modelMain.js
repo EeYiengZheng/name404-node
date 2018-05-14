@@ -271,6 +271,62 @@ module.exports.post_deletecategory = function(req, res) {
 
 
 /*
+ * POST update a product
+ */
+module.exports.post_updateproduct = function(req, res) {
+    if (!req.session.currentUserObj.isAdmin) {
+        res.send("Access Denied");
+    }
+
+    //Params
+    var product_id = req.params.productid;
+	var product_name = req.body.product_name;
+	var manf_name = req.body.manf_name;
+	var stock_quantity = req.body.stock_quantity;
+	var price = req.body.price;
+	var supplier_name = req.body.supplier_name;
+	var cat_name = req.body.cat_name;
+
+	//db operations
+    var db = req.db;
+    var collection = db.get('testproduct');
+    collection.update( { "_id" : product_id }, {$set: {"product_name" : product_name, "manf_name": manf_name, "stock_quantity": stock_quantity, "price": price, "supplier_name": supplier_name, "cat_name": cat_name}},
+                       function (err, doc) 
+                       {
+                           if (err) {
+                               res.send("Update failed.");
+                           }
+                           else {
+                		  	   res.redirect('/showproduct/' + product_id);
+                           }
+                       });
+};
+
+/*
+ * GET edit product form
+ */
+module.exports.get_editproduct = function (req, res) {
+    if (!req.session.currentUserObj.isAdmin) {
+        res.send("Access Denied");
+    }
+    const product_id = req.params.product_id;
+    const db = req.db;
+    const collection = db.get('testproduct');
+    collection.find(
+        {_id: product_id},
+        function (err, doc) {
+            if (err) {
+                res.send("Find failed.");
+            }
+            else {
+                res.render('editproduct', {title: 'Editing Product #' + product_id, product: doc[0], product_id: product_id, "currentUserObj" : req.session.currentUserObj});
+            }
+        }
+    );
+};
+
+
+/*
  * GET product
  */
 module.exports.get_showproduct = function (req, res) {

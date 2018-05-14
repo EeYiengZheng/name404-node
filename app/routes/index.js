@@ -53,6 +53,12 @@ router.post('/createproduct', modelMain.post_createproduct);
 
 
 /*
+ * GET/POST edit product form
+ */
+router.get('/editproduct/:product_id', modelMain.get_editproduct);
+router.post('/editproduct/:productid', modelMain.post_updateproduct);
+
+/*
  * POST delete a product
  */
 router.post('/deleteproduct', modelMain.post_deleteproduct);

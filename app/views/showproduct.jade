@@ -11,8 +11,11 @@ block content
             p= "Category: " + product.cat_name
             p= "Product ID: " + product._id
 
-    // TODO: need quantity input + submit button for making order
-    // Use this code for later:
+
+    - if (currentUserObj != undefined && currentUserObj.isAdmin) {
+    form#formEditProduct(name="editproduct",method="get",action="/editproduct/" + product._id)
+        button#submitbtn(type="submit") Edit
+    - }
 
     form#formAddOrder(name="buyproduct", method="get", action="/buyproduct")
         input#productquantity(type="text", placeholder="Quantity", name="quantity")
@@ -22,3 +25,6 @@ block content
         input#productid(type='hidden', name='id', value=product._id)
         br
         button#btnSubmit(type="submit") Buy
+
+
+        
