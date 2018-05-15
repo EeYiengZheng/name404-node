@@ -53,44 +53,6 @@ module.exports.get_admin = function (req, res) {
     res.render('admin', {"currentUserObj" : req.session.currentUserObj});
 };
 
-
-
-/*
- * POST delete a transaction
- */
-module.exports.post_deleteorder = function (req, res) {
-    var o_no = parseInt(req.params.orderno, 10);
-    var db = req.db;
-    var collection = db.get('transaction');
-
-    // Submit to the database.
-    collection.remove({"order_no": o_no},
-        function (err, doc) {
-            if (err) {
-                res.send("Delete failed.");
-            }
-            else {
-                res.send("Successfully deleted Order " + doc);
-            }
-        });
-};
-
-
-/*
- * GET list of transactions
- */
-module.exports.get_orderlist = function (req, res) {
-    const db = req.db;
-    const collection = db.get('transaction');
-    collection.find({}, {},
-        function (err, docs) {
-            res.render('orderlist', {
-                "orderlist": docs,
-            });
-        });
-};
-
-
 /*
  * GET show a transaction
  */
@@ -105,7 +67,6 @@ module.exports.get_showorder = function (req, res) {
                 res.send("Find failed.");
             }
             else {
-                console.log(doc[0])
                 res.render('showorder', {
                     title: 'Show Order No: ' + orderId,
                     order: doc[0],
@@ -113,50 +74,6 @@ module.exports.get_showorder = function (req, res) {
                 });
             }
         });
-};
-
-/*
- * POST update a transaction
- */
-module.exports.post_updateorder = function(req, res, next) 
-{
-	var quant = req.body.quantity;
-    var o_no = parseInt(req.params.orderno, 10);
-    var db = req.db;
-    var collection = db.get('transaction');
-
-    // Submit to the database.
-    collection.update( { "order_no" : o_no }, {$set: {"quantity" : quant}},
-                       function (err, doc) 
-                       {
-                           if (err) {
-                               res.send("Update failed.");
-                           }
-                           else {
-                               res.send("Successfully updated Order " + o_no + " to quantity " + quant);
-                           }
-                       });
-};
-
-/*
- * GET edit user form
- */
-module.exports.get_editorder = function (req, res) {
-    const orderNo = req.params.order_no;
-    const db = req.db;
-    const collection = db.get('transaction');
-    collection.find(
-        {order_no: parseInt(orderNo)},
-        function (err, doc) {
-            if (err) {
-                res.send("Find failed.");
-            }
-            else {
-                console.log(doc[0])
-                res.render('editorder', {title: 'Edit Quantity of Order #' + orderNo, order: doc[0], orderNo: orderNo});
-            }
-        }
-    );
 };
 
 /*
